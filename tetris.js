@@ -6,6 +6,16 @@ context.scale(30, 30); // 10x20 => 300x600
 const ROWS = 20;
 const COLS = 10;
 
+const COLORS = {
+  1: "cyan",
+  2: "yellow",
+  3: "purple",
+  4: "green",
+  5: "red",
+  6: "blue",
+  7: "orange",
+};
+
 const PIECES = {
   I: [[1, 1, 1, 1]],
   O: [
@@ -137,11 +147,13 @@ function draw() {
   drawMatrix(currentPiece.matrix, currentPiece.pos);
 }
 
-function drawMatrix(matrix, offset) {
+function drawMatrix(matrix, offset, ghost = false) {
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value) {
-        context.fillStyle = "#0ff";
+        context.fillStyle = ghost
+          ? "rgba(255, 255, 255, 0.2)"
+          : COLORS[value] || "white";
         context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
     });
@@ -154,7 +166,7 @@ function drawGhost() {
     ghostY++;
   }
   ghostY--;
-  drawMatrix(currentPiece.matrix, { x: currentPiece.pos.x, y: ghostY });
+  drawMatrix(currentPiece.matrix, { x: currentPiece.pos.x, y: ghostY }, true);
 }
 
 function drawNext() {
@@ -164,7 +176,7 @@ function drawNext() {
     p.matrix.forEach((row, y) => {
       row.forEach((val, x) => {
         if (val) {
-          next.fillStyle = "#aaa";
+          next.fillStyle = COLORS[val] || "gray";
           next.fillRect(x * 10, i * 80 + y * 10, 10, 10);
         }
       });
@@ -193,7 +205,7 @@ function drawHold() {
   holdPiece.matrix.forEach((row, y) => {
     row.forEach((val, x) => {
       if (val) {
-        hold.fillStyle = "#aaa";
+        hold.fillStyle = COLORS[val] || "gray";
         hold.fillRect(x * 10, y * 10, 10, 10);
       }
     });
