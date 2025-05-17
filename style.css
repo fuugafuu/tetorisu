@@ -39,3 +39,17 @@ canvas {
   font-size: 1.2rem;
   text-align: center;
 }
+
+/* ブロックごとの色指定 */
+.block-1 { background-color: cyan; }
+.block-2 { background-color: yellow; }
+.block-3 { background-color: purple; }
+.block-4 { background-color: green; }
+.block-5 { background-color: red; }
+.block-6 { background-color: blue; }
+.block-7 { background-color: orange; }
+
+/* ゴーストブロック */
+.ghost {
+  background-color: rgba(255, 255, 255, 0.2);
+}
